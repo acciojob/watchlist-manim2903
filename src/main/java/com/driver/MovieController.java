@@ -3,7 +3,7 @@ package com.driver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,9 +25,19 @@ public class MovieController {
         return new ResponseEntity<>("New Director added successfully",HttpStatus.CREATED);
     }
     @PostMapping("/add-movie-director-pair")
-    public ResponseEntity<String> addMovieDirectorPair(@RequestParam String movie,@RequestParam String director){
+    public ResponseEntity<String> addMovieDirectorPair(@RequestParam("movie") String movie,@RequestParam("director") String director){
         movieService.addMovieDirectorPair(movie,director);
         return new ResponseEntity<>("New movie-director pair added successfully",HttpStatus.CREATED);
+    }
+    @GetMapping("/get-movie-by-name")
+    public ResponseEntity<Movie> findMovie(@RequestParam("Movie") String movie){
+        Movie result=movieService.findMovie(movie);
+        return new ResponseEntity<>(result,HttpStatus.FOUND);
+    }
+    @GetMapping("/get-director-by-name")
+    public ResponseEntity<Director> findDirector(@RequestParam("Director") String director){
+        Director result=movieService.findDirector(director);
+        return new ResponseEntity<>(result,HttpStatus.FOUND);
     }
     @GetMapping("/get-movies-by-director-name/{director}")
     public ResponseEntity<List<String>> getMoviesByDirectorName(@PathVariable String director){
@@ -40,7 +50,7 @@ public class MovieController {
         return new ResponseEntity<>(movies,HttpStatus.FOUND);
     }
     @GetMapping("/delete-director")
-    public ResponseEntity<String> deleteDirector(@RequestParam String director){
+    public ResponseEntity<String> deleteDirector(@RequestParam("director") String director){
         movieService.deleteDirector(director);
         return new ResponseEntity<>("Director and all his movies has been deleted successfully",HttpStatus.OK);
     }
