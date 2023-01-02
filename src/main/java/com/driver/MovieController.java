@@ -30,12 +30,12 @@ public class MovieController {
         return new ResponseEntity<>("New movie-director pair added successfully",HttpStatus.CREATED);
     }
     @GetMapping("/get-movie-by-name/{Movie}")
-    public ResponseEntity<Movie> findMovie(@RequestParam("Movie") String movie){
+    public ResponseEntity<Movie> getMovieByName(@RequestParam("Movie") String movie){
         Movie result=movieService.findMovie(movie);
         return new ResponseEntity<>(result,HttpStatus.FOUND);
     }
     @GetMapping("/get-director-by-name/{Director}")
-    public ResponseEntity<Director> findDirector(@RequestParam("Director") String director){
+    public ResponseEntity<Director> getDirectorByName(@RequestParam("Director") String director){
         Director result=movieService.findDirector(director);
         return new ResponseEntity<>(result,HttpStatus.FOUND);
     }
