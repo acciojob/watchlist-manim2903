@@ -49,11 +49,12 @@ public class MovieController {
         List<String> movies=movieService.findAllMovies();
         return new ResponseEntity<>(movies,HttpStatus.FOUND);
     }
-    @GetMapping("/delete-director/{director}")
+    @DeleteMapping("/delete-director-by-name/{director}")
     public ResponseEntity<String> deleteDirector(@RequestParam("director") String director){
         movieService.deleteDirector(director);
         return new ResponseEntity<>("Director and all his movies has been deleted successfully",HttpStatus.OK);
     }
+    @DeleteMapping("/delete-all-directors")
     public ResponseEntity<String> deleteAllDirectors(){
         movieService.deleteAllDirectors();
         return new ResponseEntity<>("All Directors and their movies deleted successully",HttpStatus.OK);
